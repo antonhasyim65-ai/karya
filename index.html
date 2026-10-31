@@ -1,13 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio Saya</title>
+    
+    <!-- Google Fonts untuk Tipografi Luxury -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Background gelap dengan sentuhan gradien radial premium */
+            background: radial-gradient(circle at 50% 0%, #1f1f2e 0%, #0a0a0d 70%);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Kontainer Utama */
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /* Efek Tipografi Judul */
+        h1 {
+            font-family: 'Cinzel', serif; /* Font mewah bergaya Romawi klasik */
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Teks warna emas berkilau */
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-weight: 300;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: #888899;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        /* Garis Pembatas Emas */
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 0 auto 4rem auto;
+        }
+
+        /* Grup Tombol */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* Desain Tombol Modern-Luxury */
+        .luxury-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 1.2rem 2rem;
+            background: rgba(255, 255, 255, 0.03); /* Kaca transparan */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border-radius: 4px; /* Sudut tegas, tidak terlalu bulat */
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px); /* Efek kaca */
+        }
+
+        /* Ikon Panah di dalam tombol */
+        .luxury-btn::after {
+            content: '→';
+            font-size: 1.2rem;
+            color: #d4af37;
+            transition: transform 0.3s ease;
+        }
+
+        /* Efek Hover (Saat Kursor Diarahkan) */
+        .luxury-btn:hover {
+            border-color: #d4af37;
+            color: #ffffff;
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .luxury-btn:hover::after {
+            transform: translateX(5px); /* Panah bergeser ke kanan */
+        }
+
+        /* Efek Cahaya Menyapu */
+        .luxury-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .luxury-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .luxury-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Animasi Masuk */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsif untuk Layar HP */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+            }
+            .luxury-btn {
+                padding: 1rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Selamat Datang di Website Saya</h1>
-    <ul>
-        <li><a href="cv/">Lihat CV Saya</a></li>
-        <li><a href="karya-tulis/">Lihat Karya Tulis Saya</a></li>
-    </ul>
+
+    <div class="container">
+        <h1>Portofolio</h1>
+        <p class="subtitle">Anton Hasyim</p>
+        
+        <div class="divider"></div>
+
+        <div class="links-container">
+            <a href="cv/" class="luxury-btn">
+                <span>Lihat CV Saya</span>
+            </a>
+            
+            <a href="karya-tulis/" class="luxury-btn">
+                <span>Karya Tulis</span>
+            </a>
+        </div>
+    </div>
+
 </body>
 </html>
