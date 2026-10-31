@@ -1,1 +1,1405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mohamad Anton Athoillah — Akademisi & Peneliti Hadis</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
+:root{
+  --bg:            #08080a;
+  --bg-soft:       #0d0d11;
+  --surface:       rgba(255,255,255,.035);
+  --surface-2:     rgba(255,255,255,.06);
+  --border:        rgba(255,255,255,.08);
+  --border-gold:   rgba(212,175,55,.28);
+
+  --gold:          #d4af37;
+  --gold-light:    #f5e6a8;
+  --gold-deep:     #a8801f;
+
+  --text:          #ece9e4;
+  --muted:         #97948e;
+
+  --font-display:  'Playfair Display', Georgia, serif;
+  --font-body:     'Outfit', system-ui, -apple-system, sans-serif;
+
+  --radius:        18px;
+  --radius-sm:     12px;
+  --ease:          cubic-bezier(.2,.8,.2,1);
+  --maxw:          1120px;
+}
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 12% -8%, rgba(212,175,55,.10), transparent 62%),
+    radial-gradient(800px 620px at 92% 8%,  rgba(120,90,220,.10), transparent 60%),
+    radial-gradient(900px 700px at 50% 115%, rgba(212,175,55,.07), transparent 65%);
+}
+
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  z-index:9998;
+  pointer-events:none;
+  opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+::selection{ background:rgba(212,175,55,.28); color:#fff; }
+
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-track{ background:#0a0a0d; }
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(var(--gold-deep), #3a2f10);
+  border-radius:99px;
+  border:2px solid #0a0a0d;
+}
+
+.cursor-glow{
+  position:fixed;
+  top:0; left:0;
+  width:520px; height:520px;
+  margin:-260px 0 0 -260px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:1;
+  opacity:.55;
+  background:radial-gradient(circle, rgba(212,175,55,.13), transparent 62%);
+  transition:opacity .5s ease;
+  will-change:transform;
+}
+
+/* ============================================================
+   3. LAYOUT HELPERS
+   ============================================================ */
+.wrap{
+  width:100%;
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:28px;
+  position:relative;
+  z-index:2;
+}
+
+.section{ padding:110px 0; position:relative; z-index:2; }
+
+.grad{
+  background:linear-gradient(115deg, var(--gold-deep) 0%, var(--gold-light) 35%, var(--gold) 62%, var(--gold-deep) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* ============================================================
+   4. NAVIGASI
+   ============================================================ */
+.nav{
+  position:fixed;
+  top:22px; left:50%;
+  transform:translateX(-50%);
+  z-index:200;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  padding:7px;
+  border-radius:999px;
+  background:rgba(11,11,15,.62);
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px) saturate(150%);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  box-shadow:0 22px 60px rgba(0,0,0,.55);
+  max-width:calc(100vw - 32px);
+  overflow-x:auto;
+  scrollbar-width:none;
+  animation:navIn 1s var(--ease) both;
+}
+.nav::-webkit-scrollbar{ display:none; }
+
+@keyframes navIn{
+  from{ opacity:0; transform:translate(-50%,-18px); }
+  to  { opacity:1; transform:translate(-50%,0); }
+}
+
+.nav a{
+  padding:9px 18px;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:400;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+  white-space:nowrap;
+  transition:color .35s var(--ease), background .35s var(--ease);
+}
+.nav a:hover{ color:var(--gold-light); }
+
+.nav a.active{
+  color:#0a0a0a;
+  background:linear-gradient(135deg, var(--gold-light), var(--gold));
+  font-weight:500;
+  box-shadow:0 6px 22px rgba(212,175,55,.32);
+}
+
+/* ============================================================
+   5. HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  padding:150px 0 90px;
+  overflow:hidden;
+  z-index:2;
+}
+
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(90px);
+  pointer-events:none;
+  z-index:0;
+}
+.orb-1{ width:480px; height:480px; top:-140px; left:-120px;  background:rgba(212,175,55,.16); animation:float1 16s ease-in-out infinite; }
+.orb-2{ width:420px; height:420px; bottom:-160px; right:-100px; background:rgba(120,90,220,.16); animation:float2 19s ease-in-out infinite; }
+.orb-3{ width:300px; height:300px; top:44%; left:52%; background:rgba(212,175,55,.08); animation:float1 22s ease-in-out infinite reverse; }
+
+@keyframes float1{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(44px,52px) scale(1.12); } }
+@keyframes float2{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-52px,-38px) scale(1.08); } }
+
+.hero-inner{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:70px;
+  align-items:center;
+  width:100%;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 16px 7px 12px;
+  border-radius:999px;
+  border:1px solid var(--border-gold);
+  background:rgba(212,175,55,.06);
+  font-size:.74rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+  font-weight:400;
+}
+.badge .dot{
+  width:7px; height:7px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 0 0 rgba(212,175,55,.7);
+  animation:pulse 2.2s infinite;
+}
+@keyframes pulse{
+  0%  { box-shadow:0 0 0 0 rgba(212,175,55,.6); }
+  70% { box-shadow:0 0 0 11px rgba(212,175,55,0); }
+  100%{ box-shadow:0 0 0 0 rgba(212,175,55,0); }
+}
+
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(2.5rem, 5.5vw, 4.5rem);
+  line-height:1.04;
+  letter-spacing:-.02em;
+  margin:26px 0 18px;
+}
+.hero h1 .grad{ display:inline-block; }
+
+.role{
+  font-size:clamp(.94rem, 1.5vw, 1.08rem);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:300;
+  margin-bottom:26px;
+}
+.role::before{
+  content:"";
+  display:inline-block;
+  width:38px; height:1px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+  vertical-align:middle;
+  margin-right:14px;
+}
+
+.lead{
+  max-width:52ch;
+  color:#b3b0a9;
+  font-size:1.02rem;
+  font-weight:300;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:40px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:15px 32px;
+  border-radius:999px;
+  font-size:.82rem;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease);
+  will-change:transform;
+}
+.btn:hover{ transform:translateY(-3px); }
+
+.btn-gold{
+  background:linear-gradient(135deg, var(--gold-light), var(--gold) 55%, var(--gold-deep));
+  color:#100d05;
+  box-shadow:0 14px 34px rgba(212,175,55,.28);
+}
+.btn-gold:hover{ box-shadow:0 20px 46px rgba(212,175,55,.44); }
+
+.btn-ghost{
+  border:1px solid var(--border);
+  color:var(--text);
+  background:rgba(255,255,255,.02);
+}
+.btn-ghost:hover{ border-color:var(--border-gold); color:var(--gold-light); background:rgba(212,175,55,.06); }
+
+.socials{
+  display:flex;
+  gap:12px;
+  margin-top:44px;
+}
+.socials a{
+  width:44px; height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid var(--border);
+  color:var(--muted);
+  background:rgba(255,255,255,.02);
+  transition:.4s var(--ease);
+}
+.socials a:hover{
+  color:var(--gold-light);
+  border-color:var(--border-gold);
+  background:rgba(212,175,55,.08);
+  transform:translateY(-3px);
+}
+.socials svg{ width:17px; height:17px; }
+
+/* Foto */
+.hero-photo{ display:flex; justify-content:center; }
+
+.photo-ring{
+  position:relative;
+  width:min(330px, 68vw);
+  aspect-ratio:1;
+  border-radius:50%;
+  padding:2px;
+  background:linear-gradient(150deg, var(--gold-light), var(--gold-deep) 42%, rgba(212,175,55,.15) 70%, var(--gold) 100%);
+  animation:floatPhoto 7s ease-in-out infinite;
+}
+.photo-ring::before{
+  content:"";
+  position:absolute;
+  inset:-22px;
+  border-radius:50%;
+  border:1px solid rgba(212,175,55,.16);
+}
+.photo-ring::after{
+  content:"";
+  position:absolute;
+  inset:-46px;
+  border-radius:50%;
+  border:1px dashed rgba(212,175,55,.10);
+  animation:spin 42s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+@keyframes floatPhoto{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-16px); } }
+
+.photo{
+  width:100%; height:100%;
+  border-radius:50%;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(circle at 32% 26%, #1c1c25 0%, #0a0a0e 72%);
+  font-family:var(--font-display);
+  font-size:5.4rem;
+  font-weight:500;
+  letter-spacing:.02em;
+  color:var(--gold-light);
+  text-shadow:0 0 46px rgba(212,175,55,.42);
+}
+.photo img{ width:100%; height:100%; object-fit:cover; }
+
+/* Scroll hint */
+.scroll-hint{
+  position:absolute;
+  left:50%; bottom:34px;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  font-size:.66rem;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:#5f5d58;
+  z-index:3;
+}
+.scroll-hint span.line{
+  width:1px; height:52px;
+  background:linear-gradient(var(--gold), transparent);
+  animation:scrollLine 2.4s ease-in-out infinite;
+}
+@keyframes scrollLine{
+  0%,100%{ opacity:.25; transform:scaleY(.5); transform-origin:top; }
+  50%    { opacity:1;   transform:scaleY(1);  transform-origin:top; }
+}
+
+/* ============================================================
+   6. SECTION HEADING
+   ============================================================ */
+.section-head{ margin-bottom:60px; }
+
+.eyebrow{
+  display:block;
+  font-size:.72rem;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:16px;
+  font-weight:400;
+}
+.eyebrow::after{
+  content:"";
+  display:inline-block;
+  width:56px; height:1px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+  vertical-align:middle;
+  margin-left:16px;
+}
+
+.section-head h2{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(2rem, 4.2vw, 3rem);
+  line-height:1.14;
+  letter-spacing:-.015em;
+}
+.section-head h2 em{
+  font-style:italic;
+  font-weight:400;
+  background:linear-gradient(115deg, var(--gold-deep), var(--gold-light) 50%, var(--gold));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* ============================================================
+   7. TENTANG + STATS
+   ============================================================ */
+.about-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:60px;
+  align-items:start;
+}
+
+.about-text p{ color:#b3b0a9; margin-bottom:20px; text-align: justify; }
+.about-text strong{ color:var(--text); font-weight:500; }
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.stat{
+  padding:28px 22px;
+  border-radius:var(--radius);
+  background:linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+  border:1px solid var(--border);
+  transition:.45s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+.stat::before{
+  content:"";
+  position:absolute; top:0; left:0;
+  width:100%; height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity:0;
+  transition:opacity .45s var(--ease);
+}
+.stat:hover{
+  border-color:var(--border-gold);
+  transform:translateY(-5px);
+  background:linear-gradient(160deg, rgba(212,175,55,.10), rgba(255,255,255,.015));
+}
+.stat:hover::before{ opacity:1; }
+
+.stat b{
+  display:block;
+  font-family:var(--font-display);
+  font-size:2.5rem;
+  font-weight:500;
+  line-height:1;
+  color:var(--gold-light);
+  margin-bottom:10px;
+}
+.stat span{
+  font-size:.74rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* ============================================================
+   8. TIMELINE PENGALAMAN
+   ============================================================ */
+.timeline{ position:relative; padding-left:40px; }
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:8px; top:10px; bottom:10px;
+  width:1px;
+  background:linear-gradient(to bottom, transparent, rgba(212,175,55,.55) 12%, rgba(212,175,55,.55) 88%, transparent);
+}
+
+.tl-item{
+  position:relative;
+  padding-bottom:46px;
+}
+.tl-item:last-child{ padding-bottom:0; }
+
+.tl-item::before{
+  content:"";
+  position:absolute;
+  left:-37px; top:9px;
+  width:11px; height:11px;
+  border-radius:50%;
+  background:var(--bg);
+  border:2px solid var(--gold);
+  box-shadow:0 0 0 5px rgba(212,175,55,.10);
+  transition:.4s var(--ease);
+}
+.tl-item:hover::before{
+  box-shadow:0 0 0 8px rgba(212,175,55,.16);
+  background:var(--gold);
+}
+
+.tl-card{
+  padding:30px 32px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+  transition:.45s var(--ease);
+}
+.tl-card:hover{
+  border-color:var(--border-gold);
+  transform:translateX(6px);
+  background:linear-gradient(160deg, rgba(212,175,55,.075), rgba(255,255,255,.012));
+}
+
+.tl-top{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:10px 20px;
+  align-items:baseline;
+  margin-bottom:8px;
+}
+.tl-card h3{
+  font-family:var(--font-display);
+  font-size:1.32rem;
+  font-weight:500;
+  letter-spacing:-.01em;
+}
+.tl-period{
+  font-size:.72rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding:5px 13px;
+  border-radius:999px;
+  border:1px solid var(--border-gold);
+  background:rgba(212,175,55,.06);
+  white-space:nowrap;
+}
+.tl-company{
+  font-size:.86rem;
+  letter-spacing:.06em;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+.tl-card p{ color:#a8a5a0; font-size:.94rem; text-align: justify; }
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+.tags span{
+  font-size:.68rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#8e8b85;
+  padding:5px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.025);
+}
+
+/* ============================================================
+   9. KEAHLIAN
+   ============================================================ */
+.skills-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:34px 56px;
+}
+
+.skill-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:12px;
+}
+.skill-top span:first-child{
+  font-size:.9rem;
+  letter-spacing:.05em;
+  font-weight:400;
+  color:#d8d5cf;
+}
+.skill-top .pct{
+  font-size:.74rem;
+  letter-spacing:.12em;
+  color:var(--gold);
+}
+
+.bar{
+  height:3px;
+  border-radius:99px;
+  background:rgba(255,255,255,.075);
+  overflow:hidden;
+}
+.bar i{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:99px;
+  background:linear-gradient(90deg, var(--gold-deep), var(--gold) 45%, var(--gold-light));
+  box-shadow:0 0 14px rgba(212,175,55,.55);
+  transition:width 1.5s var(--ease);
+}
+
+/* ============================================================
+   10. PENDIDIKAN
+   ============================================================ */
+.edu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:20px;
+}
+
+.edu-card{
+  padding:34px 30px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+  position:relative;
+  overflow:hidden;
+  transition:.45s var(--ease);
+}
+.edu-card::after{
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:2px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .6s var(--ease);
+}
+.edu-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--border-gold);
+  background:linear-gradient(160deg, rgba(212,175,55,.08), rgba(255,255,255,.012));
+}
+.edu-card:hover::after{ transform:scaleX(1); }
+
+.edu-year{
+  font-size:.72rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+.edu-card h3{
+  font-family:var(--font-display);
+  font-size:1.2rem;
+  font-weight:500;
+  line-height:1.35;
+  margin-bottom:8px;
+}
+.edu-card p{ font-size:.88rem; color:var(--muted); }
+
+/* ============================================================
+   11. KONTAK
+   ============================================================ */
+.contact-box{
+  border-radius:26px;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(700px 320px at 50% -10%, rgba(212,175,55,.12), transparent 68%),
+    linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.01));
+  padding:70px 40px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.contact-box h2{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(1.9rem, 4.2vw, 3rem);
+  line-height:1.15;
+  letter-spacing:-.015em;
+  margin-bottom:18px;
+}
+.contact-box > p{
+  color:#a8a5a0;
+  max-width:52ch;
+  margin:0 auto 44px;
+}
+
+.contact-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:14px;
+  max-width:840px;
+  margin:0 auto 46px;
+}
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:20px 22px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.022);
+  text-align:left;
+  transition:.4s var(--ease);
+}
+.contact-item:hover{
+  border-color:var(--border-gold);
+  background:rgba(212,175,55,.07);
+  transform:translateY(-4px);
+}
+.contact-item .ico{
+  width:38px; height:38px;
+  flex:0 0 38px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:rgba(212,175,55,.10);
+  border:1px solid var(--border-gold);
+  color:var(--gold-light);
+}
+.contact-item .ico svg{ width:16px; height:16px; }
+.contact-item small{
+  display:block;
+  font-size:.66rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#7d7a75;
+  margin-bottom:3px;
+}
+.contact-item b{
+  font-weight:400;
+  font-size:.9rem;
+  color:var(--text);
+  word-break:break-word;
+}
+
+/* ============================================================
+   12. FOOTER
+   ============================================================ */
+.footer{
+  padding:44px 0 56px;
+  border-top:1px solid var(--border);
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+.footer p{
+  font-size:.76rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#66635e;
+}
+.footer .mark{
+  font-family:var(--font-display);
+  font-size:1rem;
+  letter-spacing:.04em;
+  color:var(--gold-light);
+  text-transform:none;
+}
+.footer .mark::before{
+  content:"";
+  display:inline-block;
+  width:26px; height:1px;
+  background:var(--gold);
+  vertical-align:middle;
+  margin-right:12px;
+}
+
+/* ============================================================
+   13. REVEAL ANIMATION
+   ============================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 1s var(--ease), transform 1s var(--ease);
+  will-change:opacity, transform;
+}
+.reveal.is-in{
+  opacity:1;
+  transform:none;
+}
+
+/* ============================================================
+   14. RESPONSIVE
+   ============================================================ */
+@media (max-width: 960px){
+  .hero-inner{ grid-template-columns:1fr; gap:56px; text-align:center; }
+  .hero-text{ order:2; }
+  .hero-photo{ order:1; }
+  .role::before{ display:none; }
+  .lead{ margin-inline:auto; }
+  .hero-actions, .socials{ justify-content:center; }
+  .about-grid{ grid-template-columns:1fr; gap:44px; }
+  .skills-grid{ grid-template-columns:1fr; gap:28px; }
+  .scroll-hint{ display:none; }
+}
+
+@media (max-width: 620px){
+  .section{ padding:78px 0; }
+  .wrap{ padding-inline:20px; }
+  .hero{ padding:130px 0 70px; }
+  .nav{ top:14px; padding:6px; }
+  .nav a{ padding:8px 13px; font-size:.68rem; letter-spacing:.06em; }
+  .photo{ font-size:4rem; }
+  .photo-ring::after{ inset:-30px; }
+  .tl-card{ padding:24px 22px; }
+  .timeline{ padding-left:30px; }
+  .tl-item::before{ left:-27px; }
+  .timeline::before{ left:8px; }
+  .contact-box{ padding:48px 22px; }
+  .stats{ gap:12px; }
+  .stat{ padding:22px 16px; }
+  .stat b{ font-size:2rem; }
+  .cursor-glow{ display:none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- ============================ NAV ============================ -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="active">Beranda</a>
+  <a href="#tentang">Tentang</a>
+  <a href="#pengalaman">Pengalaman</a>
+  <a href="#keahlian">Keahlian</a>
+  <a href="#pendidikan">Pendidikan</a>
+  <a href="#kontak">Kontak</a>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="hero">
+  <span class="orb orb-1"></span>
+  <span class="orb orb-2"></span>
+  <span class="orb orb-3"></span>
+
+  <div class="wrap hero-inner">
+
+    <div class="hero-text">
+      <span class="badge"><i class="dot"></i> Dosen &amp; Peneliti Hadis</span>
+
+      <h1>Mohamad Anton<br /><span class="grad">Athoillah</span></h1>
+
+      <p class="role">Akademisi &amp; Peneliti Hadis dan Ilmu Hadis</p>
+
+      <p class="lead">
+        Mendedikasikan diri dalam kajian Hadis dan Ilmu Hadis di 
+        <strong>UIN Sunan Gunung Djati Bandung</strong>. Memadukan ketelitian 
+        akademik, kritik sanad dan matan, serta pemahaman kontekstual untuk 
+        menjawab tantangan umat kontemporer.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#kontak" class="btn btn-gold">Hubungi Saya</a>
+        <a href="#pengalaman" class="btn btn-ghost">Lihat Publikasi</a>
+      </div>
+
+      <div class="socials">
+        <a href="#" aria-label="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+        </a>
+        <a href="#" aria-label="Scopus">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+        </a>
+        <a href="#" aria-label="ResearchGate">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-15C3.12 3 2 4.12 2 5.5v13C2 19.88 3.12 21 4.5 21h15c1.38 0 2.5-1.12 2.5-2.5v-13C22 4.12 20.88 3 19.5 3zM13 17.5h-2v-4.2c0-1.1-.4-1.7-1.3-1.7-1 0-1.7.7-1.7 1.9v4H6v-9h2v1.2c.5-.8 1.4-1.4 2.6-1.4 1.8 0 2.4 1.1 2.4 2.8v6.4zm3.5-9.5c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2 1.2.5 1.2 1.2-.5 1.2-1.2 1.2zm1 9.5h-2v-9h2v9z"/></svg>
+        </a>
+        <a href="#" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6.5 9-6.5"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <div class="photo-ring">
+        <div class="photo">
+          <!-- Tag img dengan style object-position agar wajah dan peci pas di tengah -->
+          <img 
+            src="foto-saya.jpg" 
+            alt="Foto Mohamad Anton Athoillah" 
+            loading="eager"
+            style="object-position: center 25%;"
+            onerror="this.style.display='none'; this.parentElement.textContent='MA';" 
+          />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="#tentang" class="scroll-hint" aria-label="Gulir ke bawah">
+    <span>Gulir</span>
+    <span class="line"></span>
+  </a>
+</header>
+
+<!-- ============================ TENTANG ============================ -->
+<section class="section" id="tentang">
+  <div class="wrap">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">01 — Tentang</span>
+      <h2>Profil <em>Singkat</em></h2>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="about-text reveal">
+        <p>
+          Saya adalah <strong>Akademisi dan Peneliti</strong> yang berfokus pada bidang 
+          <strong>Hadis dan Ilmu Hadis</strong>. Saat ini saya mengabdi sebagai dosen 
+          dengan homebase di <strong>UIN Sunan Gunung Djati Bandung</strong>.
+        </p>
+        <p>
+          Ketertarikan saya terletak pada metodologi kritik hadis (Naqd al-Hadith), 
+          kajian sanad dan matan, serta bagaimana teks-teks klasik ini dapat 
+          dikontekstualisasikan dalam menjawab realitas sosial keagamaan masa kini. 
+          Saya meyakini bahwa pemahaman hadis yang otentik harus berjalan seiring 
+          dengan penalaran yang kritis dan relevan.
+        </p>
+        <p>
+          Selain mengajar, saya aktif melakukan penelitian, menulis artikel di 
+          jurnal ilmiah nasional dan internasional, serta terlibat dalam berbagai 
+          forum kajian keislaman.
+        </p>
+      </div>
+
+      <div class="stats reveal">
+        <div class="stat">
+          <b class="count" data-target="20" data-suffix="+">0</b>
+          <span>Tahun Pengabdian</span>
+        </div>
+        <div class="stat">
+          <b class="count" data-target="50" data-suffix="+">0</b>
+          <span>Publikasi Ilmiah</span>
+        </div>
+        <div class="stat">
+          <b class="count" data-target="30" data-suffix="+">0</b>
+          <span>Penelitian Hadis</span>
+        </div>
+        <div class="stat">
+          <b class="count" data-target="100" data-suffix="+">0</b>
+          <span>Mahasiswa Bimbingan</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PENGALAMAN ============================ -->
+<section class="section" id="pengalaman">
+  <div class="wrap">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">02 — Karier</span>
+      <h2>Pengalaman <em>Profesional</em></h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-card">
+          <div class="tl-top">
+            <h3>Dosen Tetap &amp; Peneliti</h3>
+            <span class="tl-period">2010 — Sekarang</span>
+          </div>
+          <p class="tl-company">UIN Sunan Gunung Djati · Bandung</p>
+          <p>
+            Mengampu mata kuliah di bidang Ilmu Hadis, Takhrij Hadis, dan 
+            Metodologi Penelitian Hadis. Aktif membimbing skripsi, tesis, dan disertasi 
+            mahasiswa, serta menjadi penguji pada berbagai ujian akademik.
+          </p>
+          <div class="tags">
+            <span>Ilmu Hadis</span><span>Pengajaran</span><span>Bimbingan</span><span>UIN SGD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card">
+          <div class="tl-top">
+            <h3>Ketua Pusat Kajian Hadis</h3>
+            <span class="tl-period">2018 — Sekarang</span>
+          </div>
+          <p class="tl-company">Lembaga Penelitian dan Pengabdian · Bandung</p>
+          <p>
+            Memimpin program penelitian kolaboratif terkait digitalisasi manuskrip hadis, 
+            pengembangan metode pemahaman hadis kontemporer, serta menjadi 
+            pembicara kunci dalam berbagai seminar nasional dan internasional.
+          </p>
+          <div class="tags">
+            <span>Riset</span><span>Manuskrip</span><span>Kolaborasi</span><span>Publikasi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card">
+          <div class="tl-top">
+            <h3>Reviewer Jurnal Ilmiah</h3>
+            <span class="tl-period">2015 — Sekarang</span>
+          </div>
+          <p class="tl-company">Jurnal Studi Hadis &amp; Jurnal Ilmu Ushuluddin</p>
+          <p>
+            Melakukan telaah sejawat (peer-review) untuk artikel-artikel ilmiah 
+            yang berkaitan dengan kajian hadis, tafsir, dan studi Islam, 
+            memastikan standar metodologis dan kualitas akademik tetap terjaga.
+          </p>
+          <div class="tags">
+            <span>Peer-Review</span><span>Editorial</span><span>Studi Islam</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ KEAHLIAN ============================ -->
+<section class="section" id="keahlian">
+  <div class="wrap">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">03 — Kapabilitas</span>
+      <h2>Keahlian <em>Akademik</em></h2>
+    </div>
+
+    <div class="skills-grid reveal">
+
+      <div class="skill">
+        <div class="skill-top"><span>Ilmu Hadis &amp; Mustalah</span><span class="pct">98%</span></div>
+        <div class="bar"><i data-w="98"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>Takhrij &amp; Kritik Sanad</span><span class="pct">95%</span></div>
+        <div class="bar"><i data-w="95"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>Bahasa Arab Klasik</span><span class="pct">92%</span></div>
+        <div class="bar"><i data-w="92"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>Metodologi Penelitian</span><span class="pct">90%</span></div>
+        <div class="bar"><i data-w="90"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>Fiqh al-Hadith</span><span class="pct">88%</span></div>
+        <div class="bar"><i data-w="88"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>Penulisan Karya Ilmiah</span><span class="pct">90%</span></div>
+        <div class="bar"><i data-w="90"></i></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PENDIDIKAN ============================ -->
+<section class="section" id="pendidikan">
+  <div class="wrap">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">04 — Latar Belakang</span>
+      <h2>Pendidikan <em>&amp; Gelar</em></h2>
+    </div>
+
+    <div class="edu-grid">
+
+      <div class="edu-card reveal">
+        <div class="edu-year">Doktor (S3)</div>
+        <h3>Ilmu Hadis / Studi Islam</h3>
+        <p>Konsentrasi pada kajian teks dan konteks hadis, metodologi kritik, dan pemikiran Islam kontemporer.</p>
+      </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-year">Magister (S2)</div>
+        <h3>Ilmu Hadis</h3>
+        <p>Pendalaman terhadap kritik sanad, matan, dan literatur klasik ilmu hadis.</p>
+      </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-year">Sarjana (S1)</div>
+        <h3>Tafsir Hadis</h3>
+        <p>Fondasi keilmuan dalam memahami Al-Qur'an, Hadis, dan khazanah keislaman klasik.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ KONTAK ============================ -->
+<section class="section" id="kontak">
+  <div class="wrap">
+
+    <div class="contact-box reveal">
+      <h2>Mari <em class="grad">Berkolaborasi</em></h2>
+      <p>
+        Terbuka untuk kolaborasi penelitian, diskusi akademik, 
+        maupun permohonan narasumber dalam bidang Hadis dan Ilmu Hadis. 
+        Silakan hubungi melalui kanal di bawah ini.
+      </p>
+
+      <div class="contact-list">
+
+        <a class="contact-item" href="mailto:anton.athoillah@uinsgd.ac.id">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6.5 9-6.5"/></svg>
+          </span>
+          <span>
+            <small>Email Kampus</small>
+            <b>anton.athoillah@uinsgd.ac.id</b>
+          </span>
+        </a>
+
+        <a class="contact-item" href="#">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          </span>
+          <span>
+            <small>Homebase</small>
+            <b>UIN Sunan Gunung Djati</b>
+          </span>
+        </a>
+
+        <a class="contact-item" href="#">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3.5h3l1.7 4.2-2.1 1.5a12.5 12.5 0 0 0 5.2 5.2l1.5-2.1 4.2 1.7v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3 5.7 2 2 0 0 1 5 3.5z"/></svg>
+          </span>
+          <span>
+            <small>Lokasi</small>
+            <b>Bandung, Indonesia</b>
+          </span>
+        </a>
+
+        <a class="contact-item" href="#">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05a4.17 4.17 0 0 1 3.75-2.06C21.3 8.64 22 11 22 14.1V21h-4v-6.1c0-1.46-.03-3.34-2.04-3.34-2.04 0-2.35 1.6-2.35 3.24V21h-4z"/></svg>
+          </span>
+          <span>
+            <small>Google Scholar</small>
+            <b>Mohamad Anton Athoillah</b>
+          </span>
+        </a>
+
+      </div>
+
+      <a href="mailto:anton.athoillah@uinsgd.ac.id" class="btn btn-gold">Kirim Email</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<div class="wrap">
+  <footer class="footer">
+    <p class="mark">Mohamad Anton Athoillah</p>
+    <p>&copy; <span id="year">2025</span> — Akademisi &amp; Peneliti Hadis</p>
+  </footer>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* -----------------------------------------------------------
+     1. Tahun otomatis
+     ----------------------------------------------------------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* -----------------------------------------------------------
+     2. Cursor glow (hanya perangkat dengan pointer halus)
+     ----------------------------------------------------------- */
+  const glow = document.getElementById('cursorGlow');
+  const finePointer = window.matchMedia('(pointer:fine)').matches;
+
+  if (glow && finePointer) {
+    let tx = window.innerWidth / 2;
+    let ty = window.innerHeight / 2;
+    let cx = tx, cy = ty;
+
+    document.addEventListener('mousemove', (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+    });
+
+    (function loop() {
+      cx += (tx - cx) * 0.09;
+      cy += (ty - cy) * 0.09;
+      glow.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+      requestAnimationFrame(loop);
+    })();
+  } else if (glow) {
+    glow.style.display = 'none';
+  }
+
+  /* -----------------------------------------------------------
+     3. Scroll reveal
+     ----------------------------------------------------------- */
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'));
+      const idx = siblings.indexOf(el);
+      el.style.transitionDelay = `${Math.min(idx, 6) * 90}ms`;
+      el.classList.add('is-in');
+      revealObserver.unobserve(el);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  revealEls.forEach((el) => revealObserver.observe(el));
+
+  /* -----------------------------------------------------------
+     4. Animasi progress bar keahlian
+     ----------------------------------------------------------- */
+  const bars = document.querySelectorAll('.bar i');
+
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const bar = entry.target;
+      const width = bar.getAttribute('data-w') || '0';
+      setTimeout(() => { bar.style.width = width + '%'; }, 180);
+      barObserver.unobserve(bar);
+    });
+  }, { threshold: 0.4 });
+
+  bars.forEach((b) => barObserver.observe(b));
+
+  /* -----------------------------------------------------------
+     5. Counter angka statistik
+     ----------------------------------------------------------- */
+  const counters = document.querySelectorAll('.count');
+
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  function animateCount(el) {
+    const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 1700;
+    const start = performance.now();
+
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const value = Math.round(easeOutCubic(progress) * target);
+      el.textContent = value + (progress === 1 ? suffix : '');
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      animateCount(entry.target);
+      countObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.6 });
+
+  counters.forEach((c) => countObserver.observe(c));
+
+  /* -----------------------------------------------------------
+     6. Navigasi: highlight link aktif sesuai section
+     ----------------------------------------------------------- */
+  const navLinks = Array.from(document.querySelectorAll('.nav a'));
+  const sections = navLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      navLinks.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === id);
+      });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach((sec) => navObserver.observe(sec));
+
+  /* -----------------------------------------------------------
+     7. Parallax halus pada orb hero (mouse & scroll)
+     ----------------------------------------------------------- */
+  const orbs = document.querySelectorAll('.orb');
+
+  if (orbs.length && finePointer) {
+    let mx = 0, my = 0, ox = 0, oy = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = (e.clientX / window.innerWidth - 0.5) * 2;
+      my = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    (function parallax() {
+      ox += (mx - ox) * 0.05;
+      oy += (my - oy) * 0.05;
+      orbs.forEach((orb, i) => {
+        const depth = (i + 1) * 9;
+        orb.style.marginLeft = `${ox * depth}px`;
+        orb.style.marginTop = `${oy * depth}px`;
+      });
+      requestAnimationFrame(parallax);
+    })();
+  }
+
+  /* -----------------------------------------------------------
+     8. Efek tilt ringan pada kartu (desktop)
+     ----------------------------------------------------------- */
+  if (finePointer) {
+    const tiltCards = document.querySelectorAll('.tl-card, .edu-card, .stat');
+
+    tiltCards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform =
+          `perspective(900px) rotateX(${(-py * 3.5).toFixed(2)}deg) rotateY(${(px * 3.5).toFixed(2)}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  /* -----------------------------------------------------------
+     9. Smooth scroll yang menghormati offset navigasi
+     ----------------------------------------------------------- */
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if (id === '#' || id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 92;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
