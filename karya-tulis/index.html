@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Karya Tulis — Mohamad Anton Athoillah</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Karya Tulis — Mohamad Anton Athoillah</title>
 
-    <!-- Google Fonts (Sama dengan halaman CV) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
 
-    <style>
+<style>
 /* ============================================================
-   1. DESIGN TOKENS
+   CSS ASLI DARI HALAMAN CV ANDA (style.txt)
    ============================================================ */
 :root{
   --bg:            #08080a;
@@ -38,11 +37,7 @@
   --maxw:          1120px;
 }
 
-/* ============================================================
-   2. RESET & BASE
-   ============================================================ */
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
-
 html{ scroll-behavior:smooth; }
 
 body{
@@ -53,6 +48,9 @@ body{
   line-height:1.7;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 body::before{
@@ -87,23 +85,6 @@ a{ color:inherit; text-decoration:none; }
   border:2px solid #0a0a0d;
 }
 
-.cursor-glow{
-  position:fixed;
-  top:0; left:0;
-  width:520px; height:520px;
-  margin:-260px 0 0 -260px;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:1;
-  opacity:.55;
-  background:radial-gradient(circle, rgba(212,175,55,.13), transparent 62%);
-  transition:opacity .5s ease;
-  will-change:transform;
-}
-
-/* ============================================================
-   3. LAYOUT HELPERS
-   ============================================================ */
 .wrap{
   width:100%;
   max-width:var(--maxw);
@@ -122,17 +103,15 @@ a{ color:inherit; text-decoration:none; }
   color:transparent;
 }
 
-/* ============================================================
-   4. NAVIGASI (TOMBOL KEMBALI KE PORTOFOLIO)
-   ============================================================ */
+/* --- TOMBOL KEMBALI --- */
 .back-btn {
   position: fixed;
   top: 24px;
-  left: 24px; /* Jarak aman dari tepi kiri */
+  left: 24px;
   z-index: 9999;
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start; /* Konten rata kiri */
+  justify-content: flex-start;
   gap: 10px;
   padding: 10px 20px;
   border-radius: 999px;
@@ -145,313 +124,32 @@ a{ color:inherit; text-decoration:none; }
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
-  white-space: nowrap; /* Mencegah teks turun baris */
+  white-space: nowrap;
   box-shadow: 0 10px 30px rgba(0,0,0,.5);
   transition: all .4s var(--ease);
   animation: navInLeft 1s var(--ease) both;
 }
-
 .back-btn:hover {
   border-color: var(--border-gold);
   background: rgba(212,175,55,.1);
   transform: translateY(-2px);
   color: #fff;
 }
-
 .back-btn svg {
   width: 14px;
   height: 14px;
   flex-shrink: 0;
   transition: transform .3s ease;
 }
+.back-btn:hover svg { transform: translateX(-3px); }
 
-.back-btn:hover svg {
-  transform: translateX(-3px);
-}
-
-/* Navigasi Tengah */
-.nav{
-  position:fixed;
-  top:22px; left:50%;
-  transform:translateX(-50%);
-  z-index:200;
-  display:flex;
-  align-items:center;
-  gap:4px;
-  padding:7px;
-  border-radius:999px;
-  background:rgba(11,11,15,.62);
-  border:1px solid var(--border);
-  backdrop-filter:blur(20px) saturate(150%);
-  -webkit-backdrop-filter:blur(20px) saturate(150%);
-  box-shadow:0 22px 60px rgba(0,0,0,.55);
-  max-width:calc(100vw - 32px);
-  overflow-x:auto;
-  scrollbar-width:none;
-  animation:navIn 1s var(--ease) both;
-}
-.nav::-webkit-scrollbar{ display:none; }
-
-@keyframes navIn{
-  from{ opacity:0; transform:translate(-50%,-18px); }
-  to  { opacity:1; transform:translate(-50%,0); }
-}
 @keyframes navInLeft{
   from{ opacity:0; transform:translateY(-18px); }
   to  { opacity:1; transform:translateY(0); }
 }
 
-.nav a{
-  padding:9px 18px;
-  border-radius:999px;
-  font-size:.78rem;
-  font-weight:400;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-  color:var(--muted);
-  white-space:nowrap;
-  transition:color .35s var(--ease), background .35s var(--ease);
-}
-.nav a:hover{ color:var(--gold-light); }
-
-.nav a.active{
-  color:#0a0a0a;
-  background:linear-gradient(135deg, var(--gold-light), var(--gold));
-  font-weight:500;
-  box-shadow:0 6px 22px rgba(212,175,55,.32);
-}
-
-/* ============================================================
-   5. HERO
-   ============================================================ */
-.hero{
-  position:relative;
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  padding:150px 0 90px;
-  overflow:hidden;
-  z-index:2;
-}
-
-.orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(90px);
-  pointer-events:none;
-  z-index:0;
-}
-.orb-1{ width:480px; height:480px; top:-140px; left:-120px;  background:rgba(212,175,55,.16); animation:float1 16s ease-in-out infinite; }
-.orb-2{ width:420px; height:420px; bottom:-160px; right:-100px; background:rgba(120,90,220,.16); animation:float2 19s ease-in-out infinite; }
-.orb-3{ width:300px; height:300px; top:44%; left:52%; background:rgba(212,175,55,.08); animation:float1 22s ease-in-out infinite reverse; }
-
-@keyframes float1{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(44px,52px) scale(1.12); } }
-@keyframes float2{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-52px,-38px) scale(1.08); } }
-
-.hero-inner{
-  display:grid;
-  grid-template-columns:1.25fr .75fr;
-  gap:70px;
-  align-items:center;
-  width:100%;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:7px 16px 7px 12px;
-  border-radius:999px;
-  border:1px solid var(--border-gold);
-  background:rgba(212,175,55,.06);
-  font-size:.74rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--gold-light);
-  font-weight:400;
-}
-.badge .dot{
-  width:7px; height:7px;
-  border-radius:50%;
-  background:var(--gold);
-  box-shadow:0 0 0 0 rgba(212,175,55,.7);
-  animation:pulse 2.2s infinite;
-}
-@keyframes pulse{
-  0%  { box-shadow:0 0 0 0 rgba(212,175,55,.6); }
-  70% { box-shadow:0 0 0 11px rgba(212,175,55,0); }
-  100%{ box-shadow:0 0 0 0 rgba(212,175,55,0); }
-}
-
-.hero h1{
-  font-family:var(--font-display);
-  font-weight:500;
-  font-size:clamp(2.5rem, 5.5vw, 4.5rem);
-  line-height:1.04;
-  letter-spacing:-.02em;
-  margin:26px 0 18px;
-}
-.hero h1 .grad{ display:inline-block; }
-
-.role{
-  font-size:clamp(.94rem, 1.5vw, 1.08rem);
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--muted);
-  font-weight:300;
-  margin-bottom:26px;
-}
-.role::before{
-  content:"";
-  display:inline-block;
-  width:38px; height:1px;
-  background:linear-gradient(90deg, var(--gold), transparent);
-  vertical-align:middle;
-  margin-right:14px;
-}
-
-.lead{
-  max-width:52ch;
-  color:#b3b0a9;
-  font-size:1.02rem;
-  font-weight:300;
-}
-
-.hero-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px;
-  margin-top:40px;
-}
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:15px 32px;
-  border-radius:999px;
-  font-size:.82rem;
-  font-weight:500;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease);
-  will-change:transform;
-}
-.btn:hover{ transform:translateY(-3px); }
-
-.btn-gold{
-  background:linear-gradient(135deg, var(--gold-light), var(--gold) 55%, var(--gold-deep));
-  color:#100d05;
-  box-shadow:0 14px 34px rgba(212,175,55,.28);
-}
-.btn-gold:hover{ box-shadow:0 20px 46px rgba(212,175,55,.44); }
-
-.btn-ghost{
-  border:1px solid var(--border);
-  color:var(--text);
-  background:rgba(255,255,255,.02);
-}
-.btn-ghost:hover{ border-color:var(--border-gold); color:var(--gold-light); background:rgba(212,175,55,.06); }
-
-.socials{
-  display:flex;
-  gap:12px;
-  margin-top:44px;
-}
-.socials a{
-  width:44px; height:44px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  border:1px solid var(--border);
-  color:var(--muted);
-  background:rgba(255,255,255,.02);
-  transition:.4s var(--ease);
-}
-.socials a:hover{
-  color:var(--gold-light);
-  border-color:var(--border-gold);
-  background:rgba(212,175,55,.08);
-  transform:translateY(-3px);
-}
-.socials svg{ width:17px; height:17px; }
-
-/* Foto */
-.hero-photo{ display:flex; justify-content:center; }
-
-.photo-ring{
-  position:relative;
-  width:min(330px, 68vw);
-  aspect-ratio:1;
-  border-radius:50%;
-  padding:2px;
-  background:linear-gradient(150deg, var(--gold-light), var(--gold-deep) 42%, rgba(212,175,55,.15) 70%, var(--gold) 100%);
-  animation:floatPhoto 7s ease-in-out infinite;
-}
-.photo-ring::before{
-  content:"";
-  position:absolute;
-  inset:-22px;
-  border-radius:50%;
-  border:1px solid rgba(212,175,55,.16);
-}
-.photo-ring::after{
-  content:"";
-  position:absolute;
-  inset:-46px;
-  border-radius:50%;
-  border:1px dashed rgba(212,175,55,.10);
-  animation:spin 42s linear infinite;
-}
-@keyframes spin{ to{ transform:rotate(360deg); } }
-@keyframes floatPhoto{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-16px); } }
-
-.photo{
-  width:100%; height:100%;
-  border-radius:50%;
-  overflow:hidden;
-  display:grid;
-  place-items:center;
-  background:radial-gradient(circle at 32% 26%, #1c1c25 0%, #0a0a0e 72%);
-  font-family:var(--font-display);
-  font-size:5.4rem;
-  font-weight:500;
-  letter-spacing:.02em;
-  color:var(--gold-light);
-  text-shadow:0 0 46px rgba(212,175,55,.42);
-}
-.photo img{ width:100%; height:100%; object-fit:cover; }
-
-/* Scroll hint */
-.scroll-hint{
-  position:absolute;
-  left:50%; bottom:34px;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  font-size:.66rem;
-  letter-spacing:.34em;
-  text-transform:uppercase;
-  color:#5f5d58;
-  z-index:3;
-}
-.scroll-hint span.line{
-  width:1px; height:52px;
-  background:linear-gradient(var(--gold), transparent);
-  animation:scrollLine 2.4s ease-in-out infinite;
-}
-@keyframes scrollLine{
-  0%,100%{ opacity:.25; transform:scaleY(.5); transform-origin:top; }
-  50%    { opacity:1;   transform:scaleY(1);  transform-origin:top; }
-}
-
-/* ============================================================
-   6. SECTION HEADING
-   ============================================================ */
+/* --- SECTION HEADING --- */
 .section-head{ margin-bottom:60px; }
-
 .eyebrow{
   display:block;
   font-size:.72rem;
@@ -469,7 +167,6 @@ a{ color:inherit; text-decoration:none; }
   vertical-align:middle;
   margin-left:16px;
 }
-
 .section-head h2{
   font-family:var(--font-display);
   font-weight:500;
@@ -486,212 +183,11 @@ a{ color:inherit; text-decoration:none; }
   color:transparent;
 }
 
-/* ============================================================
-   7. TENTANG + STATS
-   ============================================================ */
-.about-grid{
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:60px;
-  align-items:start;
-}
-
-.about-text p{ color:#b3b0a9; margin-bottom:20px; text-align: justify; }
-.about-text strong{ color:var(--text); font-weight:500; }
-
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-
-.stat{
-  padding:28px 22px;
-  border-radius:var(--radius);
-  background:linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
-  border:1px solid var(--border);
-  transition:.45s var(--ease);
-  position:relative;
-  overflow:hidden;
-}
-.stat::before{
-  content:"";
-  position:absolute; top:0; left:0;
-  width:100%; height:1px;
-  background:linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity:0;
-  transition:opacity .45s var(--ease);
-}
-.stat:hover{
-  border-color:var(--border-gold);
-  transform:translateY(-5px);
-  background:linear-gradient(160deg, rgba(212,175,55,.10), rgba(255,255,255,.015));
-}
-.stat:hover::before{ opacity:1; }
-
-.stat b{
-  display:block;
-  font-family:var(--font-display);
-  font-size:2.5rem;
-  font-weight:500;
-  line-height:1;
-  color:var(--gold-light);
-  margin-bottom:10px;
-}
-.stat span{
-  font-size:.74rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-
-/* ============================================================
-   8. TIMELINE PENGALAMAN
-   ============================================================ */
-.timeline{ position:relative; padding-left:40px; }
-.timeline::before{
-  content:"";
-  position:absolute;
-  left:8px; top:10px; bottom:10px;
-  width:1px;
-  background:linear-gradient(to bottom, transparent, rgba(212,175,55,.55) 12%, rgba(212,175,55,.55) 88%, transparent);
-}
-
-.tl-item{
-  position:relative;
-  padding-bottom:46px;
-}
-.tl-item:last-child{ padding-bottom:0; }
-
-.tl-item::before{
-  content:"";
-  position:absolute;
-  left:-37px; top:9px;
-  width:11px; height:11px;
-  border-radius:50%;
-  background:var(--bg);
-  border:2px solid var(--gold);
-  box-shadow:0 0 0 5px rgba(212,175,55,.10);
-  transition:.4s var(--ease);
-}
-.tl-item:hover::before{
-  box-shadow:0 0 0 8px rgba(212,175,55,.16);
-  background:var(--gold);
-}
-
-.tl-card{
-  padding:30px 32px;
-  border-radius:var(--radius);
-  border:1px solid var(--border);
-  background:linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
-  transition:.45s var(--ease);
-}
-.tl-card:hover{
-  border-color:var(--border-gold);
-  transform:translateX(6px);
-  background:linear-gradient(160deg, rgba(212,175,55,.075), rgba(255,255,255,.012));
-}
-
-.tl-top{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  gap:10px 20px;
-  align-items:baseline;
-  margin-bottom:8px;
-}
-.tl-card h3{
-  font-family:var(--font-display);
-  font-size:1.32rem;
-  font-weight:500;
-  letter-spacing:-.01em;
-}
-.tl-period{
-  font-size:.72rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--gold);
-  padding:5px 13px;
-  border-radius:999px;
-  border:1px solid var(--border-gold);
-  background:rgba(212,175,55,.06);
-  white-space:nowrap;
-}
-.tl-company{
-  font-size:.86rem;
-  letter-spacing:.06em;
-  color:var(--muted);
-  margin-bottom:14px;
-}
-.tl-card p{ color:#a8a5a0; font-size:.94rem; text-align: justify; }
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:18px;
-}
-.tags span{
-  font-size:.68rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:#8e8b85;
-  padding:5px 12px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.025);
-}
-
-/* ============================================================
-   9. KEAHLIAN
-   ============================================================ */
-.skills-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:34px 56px;
-}
-
-.skill-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  margin-bottom:12px;
-}
-.skill-top span:first-child{
-  font-size:.9rem;
-  letter-spacing:.05em;
-  font-weight:400;
-  color:#d8d5cf;
-}
-.skill-top .pct{
-  font-size:.74rem;
-  letter-spacing:.12em;
-  color:var(--gold);
-}
-
-.bar{
-  height:3px;
-  border-radius:99px;
-  background:rgba(255,255,255,.075);
-  overflow:hidden;
-}
-.bar i{
-  display:block;
-  height:100%;
-  width:0;
-  border-radius:99px;
-  background:linear-gradient(90deg, var(--gold-deep), var(--gold) 45%, var(--gold-light));
-  box-shadow:0 0 14px rgba(212,175,55,.55);
-  transition:width 1.5s var(--ease);
-}
-
-/* ============================================================
-   10. PENDIDIKAN
-   ============================================================ */
+/* --- KARTU KARYA TULIS (Meminjam kelas .edu-card dari CSS asli) --- */
 .edu-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  gap:24px;
 }
 
 .edu-card{
@@ -702,6 +198,9 @@ a{ color:inherit; text-decoration:none; }
   position:relative;
   overflow:hidden;
   transition:.45s var(--ease);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
 }
 .edu-card::after{
   content:"";
@@ -729,93 +228,28 @@ a{ color:inherit; text-decoration:none; }
 }
 .edu-card h3{
   font-family:var(--font-display);
-  font-size:1.2rem;
+  font-size:1.35rem;
   font-weight:500;
   line-height:1.35;
-  margin-bottom:8px;
+  margin-bottom:12px;
+  color: var(--text);
 }
-.edu-card p{ font-size:.88rem; color:var(--muted); }
+.edu-card p{ font-size:.92rem; color:var(--muted); margin-bottom: 20px; flex-grow: 1; }
 
-/* ============================================================
-   11. KONTAK
-   ============================================================ */
-.contact-box{
-  border-radius:26px;
-  border:1px solid var(--border);
-  background:
-    radial-gradient(700px 320px at 50% -10%, rgba(212,175,55,.12), transparent 68%),
-    linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.01));
-  padding:70px 40px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.contact-box h2{
-  font-family:var(--font-display);
-  font-weight:500;
-  font-size:clamp(1.9rem, 4.2vw, 3rem);
-  line-height:1.15;
-  letter-spacing:-.015em;
-  margin-bottom:18px;
-}
-.contact-box > p{
-  color:#a8a5a0;
-  max-width:52ch;
-  margin:0 auto 44px;
-}
-
-.contact-list{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-  gap:14px;
-  max-width:840px;
-  margin:0 auto 46px;
-}
-.contact-item{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:20px 22px;
-  border-radius:var(--radius-sm);
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.022);
-  text-align:left;
-  transition:.4s var(--ease);
-}
-.contact-item:hover{
-  border-color:var(--border-gold);
-  background:rgba(212,175,55,.07);
-  transform:translateY(-4px);
-}
-.contact-item .ico{
-  width:38px; height:38px;
-  flex:0 0 38px;
-  display:grid;
-  place-items:center;
-  border-radius:10px;
-  background:rgba(212,175,55,.10);
-  border:1px solid var(--border-gold);
-  color:var(--gold-light);
-}
-.contact-item .ico svg{ width:16px; height:16px; }
-.contact-item small{
-  display:block;
-  font-size:.66rem;
-  letter-spacing:.18em;
+/* Tags (Bawaan CSS Anda) */
+.tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; }
+.tags span{
+  font-size:.68rem;
+  letter-spacing:.12em;
   text-transform:uppercase;
-  color:#7d7a75;
-  margin-bottom:3px;
-}
-.contact-item b{
-  font-weight:400;
-  font-size:.9rem;
-  color:var(--text);
-  word-break:break-word;
+  color:#8e8b85;
+  padding:5px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.025);
 }
 
-/* ============================================================
-   12. FOOTER
-   ============================================================ */
+/* --- FOOTER --- */
 .footer{
   padding:44px 0 56px;
   border-top:1px solid var(--border);
@@ -826,207 +260,142 @@ a{ color:inherit; text-decoration:none; }
   align-items:center;
   position:relative;
   z-index:2;
+  margin-top: auto; /* Mendorong footer ke bawah jika konten sedikit */
 }
-.footer p{
-  font-size:.76rem;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:#66635e;
-}
-.footer .mark{
-  font-family:var(--font-display);
-  font-size:1rem;
-  letter-spacing:.04em;
-  color:var(--gold-light);
-  text-transform:none;
-}
-.footer .mark::before{
-  content:"";
-  display:inline-block;
-  width:26px; height:1px;
-  background:var(--gold);
-  vertical-align:middle;
-  margin-right:12px;
-}
-
+.footer p{ font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:#66635e; }
+.footer .mark{ font-family:var(--font-display); font-size:1rem; letter-spacing:.04em; color:var(--gold-light); text-transform:none; }
+.footer .mark::before{ content:""; display:inline-block; width:26px; height:1px; background:var(--gold); vertical-align:middle; margin-right:12px; }
 .footer-back {
-  font-size: .75rem;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--gold);
-  padding: 8px 18px;
-  border: 1px solid var(--border-gold);
-  border-radius: 999px;
-  transition: all .4s var(--ease);
-  text-decoration: none;
-  white-space: nowrap;
+  font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); padding: 8px 18px; border: 1px solid var(--border-gold); border-radius: 999px; transition: all .4s var(--ease); text-decoration: none; white-space: nowrap;
 }
-.footer-back:hover {
-  background: rgba(212,175,55,.1);
-  color: var(--gold-light);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
+.footer-back:hover { background: rgba(212,175,55,.1); color: var(--gold-light); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
 
-/* ============================================================
-   13. REVEAL ANIMATION
-   ============================================================ */
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:opacity 1s var(--ease), transform 1s var(--ease);
-  will-change:opacity, transform;
-}
-.reveal.is-in{
-  opacity:1;
-  transform:none;
-}
+/* --- REVEAL ANIMATION (Bawaan CSS Anda) --- */
+.reveal{ opacity:0; transform:translateY(30px); transition:opacity 1s var(--ease), transform 1s var(--ease); will-change:opacity, transform; }
+.reveal.is-in{ opacity:1; transform:none; }
 
-/* ============================================================
-   14. RESPONSIVE
-   ============================================================ */
-@media (max-width: 960px){
-  .hero-inner{ grid-template-columns:1fr; gap:56px; text-align:center; }
-  .hero-text{ order:2; }
-  .hero-photo{ order:1; }
-  .role::before{ display:none; }
-  .lead{ margin-inline:auto; }
-  .hero-actions, .socials{ justify-content:center; }
-  .about-grid{ grid-template-columns:1fr; gap:44px; }
-  .skills-grid{ grid-template-columns:1fr; gap:28px; }
-  .scroll-hint{ display:none; }
-}
-
+/* --- RESPONSIVE (Bawaan CSS Anda) --- */
 @media (max-width: 768px){
-  /* Pindahkan menu navigasi ke bawah agar tidak menabrak tombol Portofolio */
-  .nav {
-    top: 70px;
-  }
-  
-  .back-btn {
-    top: 18px;
-    left: 18px;
-  }
+  .back-btn { top: 18px; left: 18px; }
 }
-
 @media (max-width: 620px){
-  .section{ padding:78px 0; }
+  .section{ padding:100px 0 60px; }
   .wrap{ padding-inline:20px; }
-  .hero{ padding:150px 0 70px; } /* Padding atas ditambah karena nav turun */
-  
-  .nav{ 
-    top: 64px; 
-    padding:6px; 
-  }
-  .nav a{ padding:8px 13px; font-size:.68rem; letter-spacing:.06em; }
-
-  /* Tombol Back Mobile - Bersih dari pemotongan teks */
-  .back-btn {
-    top: 14px;
-    left: 14px;
-    padding: 8px 14px;
-    font-size: .65rem;
-    letter-spacing: .08em;
-  }
-
-  .footer {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .photo{ font-size:4rem; }
-  .photo-ring::after{ inset:-30px; }
-  .tl-card{ padding:24px 22px; }
-  .timeline{ padding-left:30px; }
-  .tl-item::before{ left:-27px; }
-  .timeline::before{ left:8px; }
-  .contact-box{ padding:48px 22px; }
-  .stats{ gap:12px; }
-  .stat{ padding:22px 16px; }
-  .stat b{ font-size:2rem; }
-  .cursor-glow{ display:none; }
+  .back-btn { top: 14px; left: 14px; padding: 8px 14px; font-size: .65rem; letter-spacing: .08em; }
+  .footer { flex-direction: column; text-align: center; gap: 20px; }
+  .section-head { text-align: center; margin-bottom: 40px; }
 }
-
 @media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{
-    animation-duration:.001ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.001ms !important;
-    scroll-behavior:auto !important;
-  }
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
 }
 </style>
 </head>
+
 <body>
 
-    <!-- TOMBOL KEMBALI KE PORTOFOLIO -->
-    <a href="../" class="back-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-        Portofolio
-    </a>
+<!-- TOMBOL KEMBALI KE PORTOFOLIO (KIRI ATAS) -->
+<a href="../" class="back-btn">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  Portofolio
+</a>
 
-    <!-- KONTEN UTAMA -->
-    <main class="container">
-        
-        <header class="header-section">
-            <span class="eyebrow">Arsip Publikasi</span>
-            <h1>Karya <span class="grad">Tulis</span></h1>
-            <p class="subtitle">
-                Kumpulan artikel, jurnal ilmiah, opini, dan tulisan seputar kajian Hadis, Ilmu Hadis, serta pemikiran Islam kontemporer.
-            </p>
-        </header>
+<!-- KONTEN UTAMA -->
+<main class="section">
+  <div class="wrap">
 
-        <!-- GRID KARTU KARYA TULIS -->
-        <div class="articles-grid">
+    <div class="section-head reveal">
+      <span class="eyebrow">Arsip Publikasi</span>
+      <h2>Karya <em>Tulis</em></h2>
+    </div>
 
-            <!-- Kartu 1 -->
-            <a href="#" class="article-card">
-                <div>
-                    <div class="article-meta">Jurnal Ilmiah · 2024</div>
-                    <h2 class="article-title">Metodologi Kritik Sanad Hadis di Era Digital</h2>
-                    <p class="article-desc">
-                        Sebuah telaah kritis terhadap pemanfaatan teknologi digital dalam proses takhrij dan verifikasi sanad hadis kontemporer.
-                    </p>
-                </div>
-                <span class="read-more">
-                    Baca Selengkapnya
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </span>
-            </a>
-
-            <!-- Kartu 2 -->
-            <a href="#" class="article-card">
-                <div>
-                    <div class="article-meta">Buku · 2023</div>
-                    <h2 class="article-title">Kontekstualisasi Hadis Sosial di Indonesia</h2>
-                    <p class="article-desc">
-                        Upaya menghadirkan teks-teks hadis klasik untuk menjawab tantangan dan realitas sosial keagamaan masyarakat modern.
-                    </p>
-                </div>
-                <span class="read-more">
-                    Lihat Detail
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </span>
-            </a>
-
-            <!-- Kartu 3 -->
-            <a href="#" class="article-card">
-                <div>
-                    <div class="article-meta">Opini Media · 2023</div>
-                    <h2 class="article-title">Menjaga Otentisitas Hadis di Tengah Banjir Informasi</h2>
-                    <p class="article-desc">
-                        Pentingnya literasi digital dan keilmuan hadis dalam menyaring informasi keagamaan yang beredar di media sosial.
-                    </p>
-                </div>
-                <span class="read-more">
-                    Baca Artikel
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </span>
-            </a>
-
+    <div class="edu-grid">
+      
+      <!-- Kartu Artikel 1 -->
+      <a href="#" class="edu-card reveal">
+        <div class="edu-year">Jurnal Ilmiah · 2024</div>
+        <h3>Metodologi Kritik Sanad Hadis di Era Digital</h3>
+        <p>Sebuah telaah kritis terhadap pemanfaatan teknologi digital dalam proses takhrij dan verifikasi sanad hadis kontemporer.</p>
+        <div class="tags">
+          <span>Hadis</span>
+          <span>Digital</span>
+          <span>Sanad</span>
         </div>
-    </main>
+      </a>
+
+      <!-- Kartu Artikel 2 -->
+      <a href="#" class="edu-card reveal">
+        <div class="edu-year">Buku · 2023</div>
+        <h3>Kontekstualisasi Hadis Sosial di Indonesia</h3>
+        <p>Upaya menghadirkan teks-teks hadis klasik untuk menjawab tantangan dan realitas sosial keagamaan masyarakat modern.</p>
+        <div class="tags">
+          <span>Buku</span>
+          <span>Sosial</span>
+          <span>Indonesia</span>
+        </div>
+      </a>
+
+      <!-- Kartu Artikel 3 -->
+      <a href="#" class="edu-card reveal">
+        <div class="edu-year">Opini Media · 2023</div>
+        <h3>Menjaga Otentisitas Hadis di Tengah Banjir Informasi</h3>
+        <p>Pentingnya literasi digital dan keilmuan hadis dalam menyaring informasi keagamaan yang beredar di media sosial.</p>
+        <div class="tags">
+          <span>Opini</span>
+          <span>Literasi</span>
+          <span>Media</span>
+        </div>
+      </a>
+
+      <!-- Kartu Artikel 4 -->
+      <a href="#" class="edu-card reveal">
+        <div class="edu-year">Penelitian · 2022</div>
+        <h3>Kritik Matan Hadis dalam Perspektif Ulama Klasik</h3>
+        <p>Studi komparatif terhadap pemahaman ulama hadis klasik mengenai kaidah-kaidah kritik matan (Naqd al-Matn).</p>
+        <div class="tags">
+          <span>Riset</span>
+          <span>Matan</span>
+          <span>Ulama</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<div class="wrap">
+  <footer class="footer">
+    <p class="mark">Mohamad Anton Athoillah</p>
+    <a href="../" class="footer-back">← Kembali ke Portofolio</a>
+    <p>&copy; <span id="year">2025</span> — Akademisi &amp; Peneliti Hadis</p>
+  </footer>
+</div>
+
+<!-- SCRIPT UNTUK ANIMASI REVEAL & TAHUN -->
+<script>
+(function () {
+  'use strict';
+  
+  // Tahun Otomatis
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Animasi Scroll Reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'));
+      const idx = siblings.indexOf(el);
+      el.style.transitionDelay = `${Math.min(idx, 6) * 90}ms`;
+      el.classList.add('is-in');
+      revealObserver.unobserve(el);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  revealEls.forEach((el) => revealObserver.observe(el));
+})();
+</script>
 
 </body>
 </html>
