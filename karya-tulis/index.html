@@ -1,1 +1,368 @@
-<h1>Ini Website Karya Tulis Saya</h1>.
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Karya Tulis — Mohamad Anton Athoillah</title>
+
+    <!-- Google Fonts (Sama dengan halaman CV) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ============================================================
+           1. DESIGN TOKENS (Sama dengan halaman CV)
+           ============================================================ */
+        :root{
+            --bg:            #08080a;
+            --bg-soft:       #0d0d11;
+            --surface:       rgba(255,255,255,.035);
+            --border:        rgba(255,255,255,.08);
+            --border-gold:   rgba(212,175,55,.28);
+
+            --gold:          #d4af37;
+            --gold-light:    #f5e6a8;
+            --gold-deep:     #a8801f;
+
+            --text:          #ece9e4;
+            --muted:         #97948e;
+
+            --font-display:  'Playfair Display', Georgia, serif;
+            --font-body:     'Outfit', system-ui, -apple-system, sans-serif;
+
+            --radius:        18px;
+            --ease:          cubic-bezier(.2,.8,.2,1);
+        }
+
+        /* ============================================================
+           2. RESET & BASE
+           ============================================================ */
+        *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+        html{ scroll-behavior:smooth; }
+
+        body{
+            background:var(--bg);
+            color:var(--text);
+            font-family:var(--font-body);
+            font-weight:300;
+            line-height:1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing:antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Efek Latar Belakang (Sama dengan halaman CV) */
+        body::before{
+            content:"";
+            position:fixed; inset:0;
+            z-index:0;
+            pointer-events:none;
+            background:
+                radial-gradient(900px 600px at 12% -8%, rgba(212,175,55,.10), transparent 62%),
+                radial-gradient(800px 620px at 92% 8%,  rgba(120,90,220,.10), transparent 60%),
+                radial-gradient(900px 700px at 50% 115%, rgba(212,175,55,.07), transparent 65%);
+        }
+
+        img{ max-width:100%; display:block; }
+        a{ color:inherit; text-decoration:none; }
+        ::selection{ background:rgba(212,175,55,.28); color:#fff; }
+
+        /* ============================================================
+           3. TOMBOL KEMBALI (Sama persis dengan halaman CV)
+           ============================================================ */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 9999;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            background: rgba(11,11,15,.85);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            color: var(--gold-light);
+            font-size: .75rem;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 10px 30px rgba(0,0,0,.5);
+            transition: all .4s var(--ease);
+            animation: navInLeft 1s var(--ease) both;
+        }
+
+        .back-btn:hover {
+            border-color: var(--border-gold);
+            background: rgba(212,175,55,.1);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .back-btn svg {
+            width: 14px; height: 14px;
+            flex-shrink: 0;
+            transition: transform .3s ease;
+        }
+        .back-btn:hover svg { transform: translateX(-3px); }
+
+        @keyframes navInLeft{
+            from{ opacity:0; transform:translateY(-18px); }
+            to  { opacity:1; transform:translateY(0); }
+        }
+
+        /* ============================================================
+           4. LAYOUT & KONTEN UTAMA
+           ============================================================ */
+        .container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 140px 24px 80px;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 70px;
+            animation: fadeIn 1.2s var(--ease) both;
+        }
+
+        .eyebrow {
+            display: block;
+            font-size: .75rem;
+            letter-spacing: .34em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .eyebrow::after {
+            content: "";
+            display: inline-block;
+            width: 56px; height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            vertical-align: middle;
+            margin-left: 16px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            margin-bottom: 20px;
+        }
+
+        /* Teks Gradasi Emas */
+        .grad {
+            background: linear-gradient(115deg, var(--gold-deep) 0%, var(--gold-light) 35%, var(--gold) 62%, var(--gold-deep) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-style: italic;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* ============================================================
+           5. KARTU KARYA TULIS (MODERN LUXURY)
+           ============================================================ */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            animation: fadeInUp 1.2s var(--ease) 0.2s both;
+        }
+
+        .article-card {
+            background: linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all .5s var(--ease);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .article-card:hover {
+            border-color: var(--border-gold);
+            background: linear-gradient(160deg, rgba(212,175,55,.08), rgba(255,255,255,.012));
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .article-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .6s var(--ease);
+        }
+
+        .article-card:hover::before { transform: scaleX(1); }
+
+        .article-meta {
+            font-size: .72rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .article-desc {
+            font-size: .92rem;
+            color: #b3b0a9;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .78rem;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-top: auto;
+            transition: color .3s ease;
+        }
+
+        .read-more svg {
+            width: 14px; height: 14px;
+            transition: transform .3s ease;
+        }
+
+        .article-card:hover .read-more { color: #fff; }
+        .article-card:hover .read-more svg { transform: translateX(4px); }
+
+        /* ============================================================
+           6. ANIMASI & RESPONSIVE
+           ============================================================ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 620px) {
+            .container { padding: 110px 20px 60px; }
+            .back-btn {
+                top: 14px; left: 14px;
+                padding: 8px 14px;
+                font-size: .65rem;
+            }
+            .article-card { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOMBOL KEMBALI KE PORTOFOLIO -->
+    <a href="../" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Portofolio
+    </a>
+
+    <!-- KONTEN UTAMA -->
+    <main class="container">
+        
+        <header class="header-section">
+            <span class="eyebrow">Arsip Publikasi</span>
+            <h1>Karya <span class="grad">Tulis</span></h1>
+            <p class="subtitle">
+                Kumpulan artikel, jurnal ilmiah, opini, dan tulisan seputar kajian Hadis, Ilmu Hadis, serta pemikiran Islam kontemporer.
+            </p>
+        </header>
+
+        <!-- GRID KARTU KARYA TULIS -->
+        <div class="articles-grid">
+
+            <!-- Kartu 1 -->
+            <a href="#" class="article-card">
+                <div>
+                    <div class="article-meta">Jurnal Ilmiah · 2024</div>
+                    <h2 class="article-title">Metodologi Kritik Sanad Hadis di Era Digital</h2>
+                    <p class="article-desc">
+                        Sebuah telaah kritis terhadap pemanfaatan teknologi digital dalam proses takhrij dan verifikasi sanad hadis kontemporer.
+                    </p>
+                </div>
+                <span class="read-more">
+                    Baca Selengkapnya
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+            </a>
+
+            <!-- Kartu 2 -->
+            <a href="#" class="article-card">
+                <div>
+                    <div class="article-meta">Buku · 2023</div>
+                    <h2 class="article-title">Kontekstualisasi Hadis Sosial di Indonesia</h2>
+                    <p class="article-desc">
+                        Upaya menghadirkan teks-teks hadis klasik untuk menjawab tantangan dan realitas sosial keagamaan masyarakat modern.
+                    </p>
+                </div>
+                <span class="read-more">
+                    Lihat Detail
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+            </a>
+
+            <!-- Kartu 3 -->
+            <a href="#" class="article-card">
+                <div>
+                    <div class="article-meta">Opini Media · 2023</div>
+                    <h2 class="article-title">Menjaga Otentisitas Hadis di Tengah Banjir Informasi</h2>
+                    <p class="article-desc">
+                        Pentingnya literasi digital dan keilmuan hadis dalam menyaring informasi keagamaan yang beredar di media sosial.
+                    </p>
+                </div>
+                <span class="read-more">
+                    Baca Artikel
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+            </a>
+
+        </div>
+    </main>
+
+</body>
+</html>
